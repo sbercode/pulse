@@ -25,6 +25,23 @@ services:
       - network1
     volumes:
       - ./storage:/data/storage:ro
+    depends_on:
+      - mongodb-service
+  # ui-service
+  ui-service:
+    container_name: ui-service
+    build: ./front
+    restart: always
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    networks:
+      - network1
+    volumes:
+      - ./storage:/data/storage:ro
+    depends_on:
+      - pulse-service
 networks:
   network1:
     driver: bridge
