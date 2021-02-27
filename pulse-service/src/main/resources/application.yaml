@@ -1,7 +1,11 @@
 server:
   port: 8000
 
+storagePath: "./files/"
+
 ---
+storagePath: "/home/putin/pulse/storage"
+
 spring:
   config:
     activate:
@@ -13,6 +17,8 @@ spring:
       database: pulse
 
 ---
+storagePath: ".\\files\\"
+
 spring:
   config:
     activate:

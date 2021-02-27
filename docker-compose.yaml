@@ -23,6 +23,8 @@ services:
       - 8000
     networks:
       - network1
+    volumes:
+      - pulse:/home/putin/pulse/storage:ro
 networks:
   network1:
     driver: bridge
