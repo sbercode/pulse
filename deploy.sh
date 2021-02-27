@@ -10,4 +10,4 @@ cd ..
 # build ui-service ??
 
 # up services in the docker containers
-docker-compose up --build
+sudo docker-compose up --build
