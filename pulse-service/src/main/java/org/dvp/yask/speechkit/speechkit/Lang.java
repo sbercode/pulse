@@ -1,4 +1,4 @@
-package com.github.sbercode.pulse.converter.speechkit;
+package org.dvp.yask.speechkit.speechkit;
 
 /**
  * Параметры языка

@@ -1,8 +1,8 @@
-package com.github.sbercode.pulse.converter.speechkit;
+package org.dvp.yask.speechkit.speechkit;
 
 import com.google.gson.Gson;
-import org.dvp.yask.speechkit.auth.Token;
-import org.dvp.yask.speechkit.exception.ClientException;
+import org.dvp.yask.speechkit.speechkit.auth.Token;
+import org.dvp.yask.speechkit.speechkit.exception.ClientException;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

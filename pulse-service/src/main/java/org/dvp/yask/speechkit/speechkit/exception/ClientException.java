@@ -1,4 +1,4 @@
-package com.github.sbercode.pulse.converter.speechkit.exception;
+package org.dvp.yask.speechkit.speechkit.exception;
 
 public class ClientException extends Exception {
 

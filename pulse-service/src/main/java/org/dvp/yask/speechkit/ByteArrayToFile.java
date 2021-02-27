@@ -1,4 +1,4 @@
-package com.github.sbercode.pulse.converter;
+package org.dvp.yask.speechkit;
 
 import java.io.File;
 import java.io.FileOutputStream;

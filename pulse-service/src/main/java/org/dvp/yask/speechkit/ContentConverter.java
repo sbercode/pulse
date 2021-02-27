@@ -1,8 +1,8 @@
-package com.github.sbercode.pulse.converter;
+package org.dvp.yask.speechkit;
 
-import com.github.sbercode.pulse.converter.speechkit.Cloud;
-import com.github.sbercode.pulse.converter.speechkit.Speech;
-import com.github.sbercode.pulse.converter.speechkit.Text;
+import org.dvp.yask.speechkit.speechkit.Cloud;
+import org.dvp.yask.speechkit.speechkit.Speech;
+import org.dvp.yask.speechkit.speechkit.Text;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

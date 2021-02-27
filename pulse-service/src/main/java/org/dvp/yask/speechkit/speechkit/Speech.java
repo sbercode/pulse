@@ -1,6 +1,6 @@
-package com.github.sbercode.pulse.converter.speechkit;
+package org.dvp.yask.speechkit.speechkit;
 
-import org.dvp.yask.speechkit.exception.ClientException;
+import org.dvp.yask.speechkit.speechkit.exception.ClientException;
 
 /**
  * Speech Формирование задачи для синтеза речи (Text-To-Speech, TTS)

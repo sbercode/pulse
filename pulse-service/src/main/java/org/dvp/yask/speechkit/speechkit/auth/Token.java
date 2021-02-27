@@ -1,4 +1,4 @@
-package com.github.sbercode.pulse.converter.speechkit.auth;
+package org.dvp.yask.speechkit.speechkit.auth;
 
 public class Token
 {
