@@ -1,15 +1,14 @@
 package com.github.sbercode.pulse.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.sbercode.pulse.util.ClassConverter;
-import org.dvp.yask.speechkit.ByteArrayToFile;
-import org.dvp.yask.speechkit.ContentConverter;
-import org.dvp.yask.speechkit.speechkit.Voice;
 import com.github.sbercode.pulse.model.NodeType;
 import com.github.sbercode.pulse.model.Post;
 import com.github.sbercode.pulse.model.node.TextNode;
 import com.github.sbercode.pulse.service.PostService;
+import com.github.sbercode.pulse.util.ClassConverter;
 import lombok.AllArgsConstructor;
+import org.dvp.yask.speechkit.ByteArrayToFile;
+import org.dvp.yask.speechkit.ContentConverter;
+import org.dvp.yask.speechkit.speechkit.Voice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ConverterController {
 
-    private final ObjectMapper objectMapper;
     private final PostService postService;
 
     //TODO: функция конвертации из короткого текста в аудио. На вход принимает ссылку на статью и имя голоса
