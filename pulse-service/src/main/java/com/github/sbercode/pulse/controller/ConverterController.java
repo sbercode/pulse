@@ -9,10 +9,8 @@ import com.github.sbercode.pulse.service.PostService;
 import com.github.sbercode.pulse.util.ClassConverter;
 import org.bson.types.Binary;
 import org.dvp.yask.speechkit.ContentConverter;
-import org.dvp.yask.speechkit.speechkit.Voice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,7 +35,6 @@ public class ConverterController {
         this.storageRepository = storageRepository;
     }
 
-    //TODO: функция конвертации из короткого текста в аудио. На вход принимает ссылку на статью и имя голоса
     @GetMapping(value = "/converter/voice/{nameVoice}/{id}.ogg",
             produces = "audio/mpeg")
     public @ResponseBody byte[] shortTextToVoice(@PathVariable String id, @PathVariable String nameVoice) {
@@ -46,7 +43,6 @@ public class ConverterController {
         ContentConverter contentConverter = new ContentConverter();
 
         byte[] result;
-        //TODO: нужно текст статьи и вставить первым параметром, второй параметр тип голоса
         Optional<Post> post = Optional.ofNullable(postService.getById(id));
 
         if (post.isEmpty() || post.get().getNodes().isEmpty()) {
@@ -61,7 +57,6 @@ public class ConverterController {
         result = contentConverter.shortTextToVoice(text, nameVoice);
 
         try {
-            //TODO: тут создаем файл. Имя неважно. предлагаю по id статьи
             fileName = storagePath + "audio_" + UUID.randomUUID().toString() + ".ogg";
             //ByteArrayToFile.save(fileName, result);
 
