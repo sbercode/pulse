@@ -8,7 +8,7 @@ spring:
       on-profile: cloud
   data:
     mongodb:
-      host: mongo-service
+      host: mongodb-service
       port: 27017
       database: pulse
 
