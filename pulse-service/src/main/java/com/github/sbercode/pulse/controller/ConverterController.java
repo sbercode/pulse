@@ -35,9 +35,13 @@ public class ConverterController {
         this.storageRepository = storageRepository;
     }
 
-    @GetMapping(value = "/converter/voice/{nameVoice}/{id}.ogg",
+    @GetMapping(value = "/converter/voice/{voiceName}/{id}.ogg",
             produces = "audio/mpeg")
-    public @ResponseBody byte[] shortTextToVoice(@PathVariable String id, @PathVariable String nameVoice) {
+    public @ResponseBody byte[] shortTextToVoice(@PathVariable String id, @PathVariable String voiceName) {
+        return getConvertedAudio(id, voiceName);
+    }
+
+    private byte[] getConvertedAudio(String id, String voiceName) {
         String fileName = "undefiled";
         byte[] savedFile;
         ContentConverter contentConverter = new ContentConverter();
@@ -54,7 +58,7 @@ public class ConverterController {
                 .map(TextNode::getValue)
                 .collect(Collectors.joining());
 
-        result = contentConverter.shortTextToVoice(text, nameVoice);
+        result = contentConverter.shortTextToVoice(text, voiceName);
 
         try {
             fileName = storagePath + "audio_" + UUID.randomUUID().toString() + ".ogg";
@@ -70,12 +74,18 @@ public class ConverterController {
         return savedFile;
     }
 
-    //TODO: функция конвертации аудио в текст. На вход принимает ссылку на статью
-    @GetMapping("/converter/text/{id}")
-    public String voiceToShortText(@PathVariable String id) {
-        ContentConverter contentConverter = new ContentConverter();
-        //TODO: указать путь к файлу на сервере (формат ogg)
-        String text = contentConverter.voiceToShortText("path.ogg");
-        return text;
-    }
+    // TODO: Fix it if will be time.
+//    @GetMapping("/converter/text/{voiceName}/{id}")
+//    public String voiceToShortText(@PathVariable String id, @PathVariable String voiceName) {
+//        ContentConverter contentConverter = new ContentConverter();
+//
+//        Path storedFile;
+//        try {
+//            storedFile = Files.write(Path.of("audio_" + UUID.randomUUID() + ".ogg"), getConvertedAudio(id, voiceName));
+//        } catch (IOException e) {
+//            throw new RuntimeException("Audio not readable");
+//        }
+//        String text = contentConverter.voiceToShortText(storagePath);
+//        return text;
+//    }
 }
