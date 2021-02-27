@@ -1,11 +1,13 @@
 package com.github.sbercode.pulse.model.node;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @Data
-@Builder
-public class TextNode {
+@NoArgsConstructor
+public class TextNode implements Serializable {
 
     private String value;
 }

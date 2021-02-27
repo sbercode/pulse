@@ -23,6 +23,8 @@ services:
       - 8000
     networks:
       - network1
+    volumes:
+      - ./storage:/data/storage:ro
 networks:
   network1:
     driver: bridge
