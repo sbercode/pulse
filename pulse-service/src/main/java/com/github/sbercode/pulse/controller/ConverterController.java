@@ -10,8 +10,7 @@ import com.github.sbercode.pulse.util.ClassConverter;
 import org.bson.types.Binary;
 import org.dvp.yask.speechkit.ContentConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.UUID;

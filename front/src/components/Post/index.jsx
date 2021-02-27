@@ -1,17 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Avatar, Card, Col, Image, Row, Typography } from 'antd';
 import moment from 'moment';
 import { CommentOutlined, HeartOutlined, MoreOutlined } from '@ant-design/icons';
 import lodash from 'lodash';
 import YouTube from 'react-youtube';
+import axios from "axios";
 
 const Post = (props) => {
+
   const {
+    id,
     name,
     nodes,
     likesCount,
     user,
-    createdDate,
+    creationDate,
+    modificationDate,
   } = props;
 
   let cover = '';
@@ -51,6 +55,18 @@ const Post = (props) => {
     );
   }
 
+  function doLike() {
+    axios.get('http://localhost:8000/posts/' + id + '/like')
+        .then(res => {
+          console.log(res.data)
+          //setPosts(res.data)
+          props.likesCount += 1;
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+  }
+
   return (
     <Card
       cover={cover}
@@ -72,7 +88,7 @@ const Post = (props) => {
         </Col>
         <Col>
           <Row>
-            Semen Salychev
+            {user != null ? user.firstName : 'Semen'} {user != null ? user.lastName : 'Salychev'}
           </Row>
           <Row>
             <Typography.Text type={'secondary'} >
@@ -85,7 +101,7 @@ const Post = (props) => {
             gutter={20}
             justify={'end'}
           >
-            <Col>130 <HeartOutlined /></Col>
+            <Col onClick={doLike}>{likesCount} <HeartOutlined /></Col>
             <Col>7 <CommentOutlined /></Col>
             <Col><MoreOutlined rotate={90}/></Col>
           </Row>
