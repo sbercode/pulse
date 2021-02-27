@@ -15,14 +15,14 @@ const LayoutComponent = (props: LayoutInterface) => {
         headerContent,
     } = props;
 
-  return <Layout>
+  return <Layout style={{ minHeight: '100%' }}>
       <Header>
           <HeaderComponent>
               {headerContent},
           </HeaderComponent>
       </Header>
       <Content>
-          <Row wrap={false}>
+          <Row wrap={false} style={{ paddingTop: '22px' }}>
               <Col flex="auto"/>
               <Col flex="480px">{children}</Col>
               <Col flex="auto"/>

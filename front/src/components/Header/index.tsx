@@ -1,4 +1,5 @@
 import React from 'react';
+import {Col, Row} from "antd";
 
 interface HeaderInterface {
     children?: React.ReactNode,
@@ -7,9 +8,11 @@ interface HeaderInterface {
 const HeaderComponent = (props: HeaderInterface) => {
 
     return (
-        <div>
-            {props.children}
-        </div>
+        <Row wrap={false}>
+            <Col flex="auto"/>
+            <Col flex="480px">{props.children}</Col>
+            <Col flex="auto"/>
+        </Row>
     );
 };
 
