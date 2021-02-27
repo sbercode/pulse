@@ -1,26 +1,33 @@
 import React from 'react';
-import { Switch, Route, RouteProps } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Feed from './Feed';
 
-const index: RouteProps[] = [
-    {
-        path: '/',
-        exact: true,
-        component: Feed,
-        children: [],
-    }
-];
+const ModulesRoutes = () => {
 
-const Routes = () => (
-    <Switch>
-        {index.map(({ children, ...props }, key) => (
+    return (
+        <Switch>
             <Route
-                key={key}
-                {...props}
+                component={Feed}
+                path="/"
+                exact
             />
-        ))}
+            <Route
+                component={Feed}
+                path="/settings"
+                exact
+            />
+        </Switch>
+    )
+};
+
+export const MenuRoutes = () => (
+    <Switch>
+        <Route
+            component={Feed.Menu}
+            path="/"
+            exact
+        />
     </Switch>
 );
 
-
-export default Routes;
+export default ModulesRoutes;

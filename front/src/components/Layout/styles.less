@@ -1,0 +1,51 @@
+@import "src/styles/variables.less";
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
+}
+
+.layout__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    min-height: 90px;
+    border-bottom: solid @sh-border-menu 1px;
+
+    .logo {
+        color: #041944;
+        font-weight: 600;
+        font-size: 33px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .user {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 400;
+
+        .avatar {
+            margin-right: 12px;
+        }
+    }
+}
+
+.layout__content {
+    box-sizing: border-box;
+    overflow: auto;
+    padding: 0 50px;
+    height: 100%;
+    position: relative;
+    display: block;
+}
+
+.layout__body {
+    display: flex;
+    overflow: hidden;
+    flex-grow: 1;
+    align-items: stretch;
+}

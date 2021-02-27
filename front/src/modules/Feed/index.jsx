@@ -1,16 +1,35 @@
 import React from 'react';
 import lodash from 'lodash';
 import moment from 'moment';
-import { Card, Space, Image, Typography, Avatar, Col, Row, Select } from 'antd';
-import { MoreOutlined, HeartOutlined, CommentOutlined } from '@ant-design/icons';
-import LayoutComponent from "../../components/Layout";
+import { Card, Space, Image, Typography, Avatar, Col, Row, Select, Tabs } from 'antd';
+import { PlayCircleOutlined, FileTextOutlined } from '@ant-design/icons';
+import Post from "../../components/Post";
+import './styles.less';
 
 const { Option } = Select;
+const { TabPane } = Tabs;
+
+const tabs = [
+  {
+    icon: PlayCircleOutlined,
+    title: "Видео",
+    type: 'VIDEO',
+  },
+  {
+    title: "Подкасты",
+    type: 'AUDIO',
+  },
+  {
+    icon: FileTextOutlined,
+    title: "Текст",
+    type: 'AUDIO',
+  }
+];
 
 const Feed = (props) => {
   const { posts = [{
     "id": "603a040a87d8bd600168665e",
-    "name": "Hello World!",
+    "name": "Hello World!HWorld!Hello World!Hello World!Hello World!Hello World!lorld!Hello World!Hello World!Hello World!Hello World!Hello World!",
     "nodes": [
       {
         "type": "TEXT",
@@ -157,75 +176,41 @@ const Feed = (props) => {
     ]
   },] } = props;
 
-    return (
-        <LayoutComponent
-          headerContent={<Select
-            mode="multiple"
-            style={{ width: '100%' }}
-            placeholder="Please select"
-            defaultValue={[1, 2]}
-          >
-            <Option value={1}>Tag 1</Option>
-            <Option value={2}>Tag 2</Option>
-            <Option value={3}>Tag 3</Option>
-          </Select>}
-        >
-          <Space
-            direction={'vertical'}
-            style={{ width: '100%' }}
-          >
-            {posts.map((el, key) => {
-              const {
-                name,
-                nodes,
-              } = el;
+  return (
+    <div className="feed__container">
+      <Tabs
+        tabBarStyle={{ border: 'none' }}
+      >
+        {tabs.map(({ icon: Icon, title }, key) => (
+          <TabPane
+            key={key}
+            tab={(
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {Icon && <Icon style={{ fontSize: '20px' }}/>}
+                {title}
+              </div>
+            )}
+          />))}
+      </Tabs>
+      <Space
+        style={{ alignContent: 'stretch', width: '100%' }}
+        direction={'vertical'}
+        size={60}
+      >
+        {posts.map((el, key) => (
+          <Post
+            key={key}
+            {...el}
+          />
+        ))}
+      </Space>
+    </div>
 
-              const image = lodash.get(lodash.find(nodes, node => node.type === 'IMAGE'), ['content', 'source']);
 
-              return (
-                <Card
-                  key={key}
-                  cover={!!image && <Image preview={false} src={image}/>}
-                  title={<Typography.Text type={'secondary'}>{moment(Date.now()).format('D MMMM')}</Typography.Text>}
-                >
-                  <Typography.Title level={2} >
-                    {name}
-                  </Typography.Title>
-                  <Row
-                    gutter={7}
-                    align={'middle'}
-                  >
-                    <Col>
-                      <Avatar>SS</Avatar>
-                    </Col>
-                    <Col>
-                      <Row>
-                          Semen Salychev
-                      </Row>
-                      <Row>
-                        <Typography.Text type={'secondary'} >
-                          @shampinon
-                        </Typography.Text>
-                      </Row>
-                    </Col>
-                    <Col flex={'auto'}>
-                      <Row
-                        gutter={20}
-                        justify={'end'}
-                      >
-                        <Col>130 <HeartOutlined /></Col>
-                        <Col>7 <CommentOutlined /></Col>
-                        <Col><MoreOutlined rotate={90}/></Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Card>
-              );
-            })}
-          </Space>
 
-        </LayoutComponent>
-    )
+ )
 }
+
+Feed.Menu = (props) => <div>as</div>;
 
 export default Feed;
