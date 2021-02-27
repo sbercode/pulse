@@ -60,7 +60,8 @@ public class ConverterController {
             fileName = storagePath + "audio_" + UUID.randomUUID().toString() + ".ogg";
             //ByteArrayToFile.save(fileName, result);
 
-            Audio savedAudio = storageRepository.save(Audio.builder().file(new Binary(result)).build());
+            // Audio savedAudio = storageRepository.save(Audio.builder().file(new Binary(result)).build());
+            Audio savedAudio = Audio.builder().file(new Binary(result)).build();
             if (savedAudio.getFile() == null) throw new RuntimeException("Audio was not saved");
             savedFile = savedAudio.getFile().getData();
         } catch (Exception e) {
