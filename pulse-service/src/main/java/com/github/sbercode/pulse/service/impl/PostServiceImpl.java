@@ -6,7 +6,9 @@ import com.github.sbercode.pulse.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +18,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post create(Post post) {
+        post.setCreationDate(new Date().getTime());
+        post.setModificationDate(new Date().getTime());
         return postRepository.save(post);
     }
 
@@ -24,6 +28,7 @@ public class PostServiceImpl implements PostService {
         if (!postRepository.existsById(post.getId())) {
             throw new RuntimeException("Post was not found for edit");
         }
+        post.setModificationDate(new Date().getTime());
         return postRepository.save(post);
     }
 
@@ -46,5 +51,33 @@ public class PostServiceImpl implements PostService {
             throw new RuntimeException("Post was not found for delete");
         }
         postRepository.deleteById(id);
+    }
+
+    @Override
+    public Post like(String id) {
+        Post post = getStoredPostByIdOrThrow(id);
+        long likesCount = post.getLikesCount();
+        post.setLikesCount(++likesCount);
+        return postRepository.save(post);
+    }
+
+    @Override
+    public Post unlike(String id) {
+        Post post = getStoredPostByIdOrThrow(id);
+        long likesCount = post.getLikesCount();
+        if (likesCount <= 0) {
+            post.setLikesCount(0);
+        } else {
+            post.setLikesCount(--likesCount);
+        }
+        return postRepository.save(post);
+    }
+
+    private Post getStoredPostByIdOrThrow(String postId) {
+        Optional<Post> post = postRepository.findById(postId);
+        if (post.isEmpty() || post.get().getNodes() == null) {
+            throw new RuntimeException("Post was not found");
+        }
+        return post.get();
     }
 }

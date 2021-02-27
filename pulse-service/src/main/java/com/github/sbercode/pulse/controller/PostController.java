@@ -44,4 +44,14 @@ public class PostController {
         log.info("Delete the post by id {}.", id);
         postService.delete(id);
     }
+
+    @GetMapping("/posts/{id}/like")
+    public Post like(@PathVariable String id) {
+        return postService.like(id);
+    }
+
+    @GetMapping("/posts/{id}/unlike")
+    public Post unlike(@PathVariable String id) {
+        return postService.unlike(id);
+    }
 }

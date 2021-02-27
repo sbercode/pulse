@@ -16,4 +16,7 @@ public interface PostService {
 
     void delete(String id);
 
+    Post like(String id);
+
+    Post unlike(String id);
 }
