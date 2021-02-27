@@ -1,6 +1,22 @@
 server:
   port: 8000
+
+---
 spring:
+  config:
+    activate:
+      on-profile: cloud
+  data:
+    mongodb:
+      host: mongo-service
+      port: 27017
+      database: pulse
+
+---
+spring:
+  config:
+    activate:
+      on-profile: develop
   data:
     mongodb:
       host: localhost
