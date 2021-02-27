@@ -23,4 +23,18 @@ public class Post {
     @JsonProperty
     private List<Node> nodes;
 
+    @JsonProperty
+    private User user;
+
+    @JsonProperty
+    private long likesCount;
+
+    @JsonProperty
+    private String[] tags;
+
+    @JsonProperty
+    private long creationDate;
+
+    @JsonProperty
+    private long modificationDate;
 }
