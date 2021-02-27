@@ -4,7 +4,7 @@ git pull master origin
 
 # build pulse-service
 cd pulse-service
-bash gradlew build
+bash gradlew build -x test
 cd ..
 
 # build ui-service ??
