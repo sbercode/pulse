@@ -26,8 +26,8 @@ public class ConverterController {
     private final PostService postService;
     private final StorageRepository storageRepository;
 
-    @Value("${storagePath}")
-    private String storagePath;
+//    @Value("${storagePath}")
+//    private String storagePath;
 
     @Autowired
     public ConverterController(PostService postService, StorageRepository storageRepository) {
@@ -42,7 +42,7 @@ public class ConverterController {
     }
 
     private byte[] getConvertedAudio(String id, String voiceName) {
-        String fileName = "undefiled";
+        //String fileName = "undefiled";
         byte[] savedFile;
         ContentConverter contentConverter = new ContentConverter();
 
@@ -61,7 +61,7 @@ public class ConverterController {
         result = contentConverter.shortTextToVoice(text, voiceName);
 
         try {
-            fileName = storagePath + "audio_" + UUID.randomUUID().toString() + ".ogg";
+            //fileName = storagePath + "audio_" + UUID.randomUUID().toString() + ".ogg";
             //ByteArrayToFile.save(fileName, result);
 
             // Audio savedAudio = storageRepository.save(Audio.builder().file(new Binary(result)).build());
