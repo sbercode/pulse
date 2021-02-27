@@ -11,6 +11,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostController {
 
     private final PostService postService;
