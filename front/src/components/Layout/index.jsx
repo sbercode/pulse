@@ -23,9 +23,9 @@ const LayoutComponent = (props) => {
             gap={6}
             className="avatar"
           >
-            RG
+            МИ
           </Avatar>
-          Rail Gallyamov
+          Мария
         </div>
       </div>
       <div

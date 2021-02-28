@@ -49,7 +49,7 @@ const Feed = (props) => {
       <Typography.Title
         level={2}
       >
-        Доброе утро, Раиль ☀
+        Доброе утро, Мария ☀
       </Typography.Title>
       <Typography.Title
         level={4}
