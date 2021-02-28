@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import lodash from 'lodash';
-import moment from 'moment';
-import {Card, Space, Image, Typography, Avatar, Col, Row, Select, Tabs} from 'antd';
+import {Space, Select, Tabs} from 'antd';
 import {PlayCircleOutlined, FileTextOutlined} from '@ant-design/icons';
 import Post from "../../components/Post";
+import Form from "../../components/Form";
+import Menu from './Menu';
 import './styles.less';
 import axios from "axios";
 
@@ -28,11 +28,10 @@ const tabs = [
 ];
 
 const Feed = (props) => {
-
   const [posts, setPosts] = useState([])
 
-  useState(() => {
-    axios.get('http://localhost:8000/posts')
+  useEffect(() => {
+    axios.get('http://188.187.62.96:8000/posts')
         .then(res => {
           console.log(res.data)
           setPosts(res.data)
@@ -40,173 +39,11 @@ const Feed = (props) => {
         .catch(function (error) {
           console.log(error);
         })
-  })
-
-  // const {
-  //   posts = (props) = axios.get('http://localhost:8000/posts')
-  //       .then(res => {
-  //         console.log(res.data)
-  //         return res.data;
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       })
-  //
-  //   // posts = [{
-  //   //   "id": "603a040a87d8bd600168665e",
-  //   //   "name": "Hello World!HWorld!Hello World!Hello World!Hello World!Hello World!lorld!Hello World!Hello World!Hello World!Hello World!Hello World!",
-  //   //   "nodes": [
-  //   //     {
-  //   //       "type": "TEXT",
-  //   //       "content": {
-  //   //         "value": "Some text here."
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "IMAGE",
-  //   //       "content": {
-  //   //         "source": "https://www.cats.org.uk/media/1400/choosing-a-cat.jpg"
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "VIDEO",
-  //   //       "content": {
-  //   //         "source": "https://www.youtube.com/watch?v=XBN60zDqWVg"
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "AUDIO",
-  //   //       "content": {
-  //   //         "value": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "POLL",
-  //   //       "content": {
-  //   //         "question": "Do aliens exist?",
-  //   //         "answers": [
-  //   //           {
-  //   //             "value": "Yes",
-  //   //             "count": 2
-  //   //           },
-  //   //           {
-  //   //             "value": "No",
-  //   //             "count": 6
-  //   //           },
-  //   //           {
-  //   //             "value": "I don't know",
-  //   //             "count": 1
-  //   //           }
-  //   //         ]
-  //   //       }
-  //   //     }
-  //   //   ]
-  //   // }, {
-  //   //   "id": "603a040a87d8bd600168665e",
-  //   //   "name": "Hello World!",
-  //   //   "nodes": [
-  //   //     {
-  //   //       "type": "TEXT",
-  //   //       "content": {
-  //   //         "value": "Some text here."
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "IMAGE",
-  //   //       "content": {
-  //   //         "source": "https://www.cats.org.uk/media/1400/choosing-a-cat.jpg"
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "VIDEO",
-  //   //       "content": {
-  //   //         "source": "https://www.youtube.com/watch?v=XBN60zDqWVg"
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "AUDIO",
-  //   //       "content": {
-  //   //         "value": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "POLL",
-  //   //       "content": {
-  //   //         "question": "Do aliens exist?",
-  //   //         "answers": [
-  //   //           {
-  //   //             "value": "Yes",
-  //   //             "count": 2
-  //   //           },
-  //   //           {
-  //   //             "value": "No",
-  //   //             "count": 6
-  //   //           },
-  //   //           {
-  //   //             "value": "I don't know",
-  //   //             "count": 1
-  //   //           }
-  //   //         ]
-  //   //       }
-  //   //     }
-  //   //   ]
-  //   // }, {
-  //   //   "id": "603a040a87d8bd600168665e",
-  //   //   "name": "Hello World!",
-  //   //   "nodes": [
-  //   //     {
-  //   //       "type": "TEXT",
-  //   //       "content": {
-  //   //         "value": "Some text here."
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "IMAGE",
-  //   //       "content": {
-  //   //         "source": "https://www.cats.org.uk/media/1400/choosing-a-cat.jpg"
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "VIDEO",
-  //   //       "content": {
-  //   //         "source": "https://www.youtube.com/watch?v=XBN60zDqWVg"
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "AUDIO",
-  //   //       "content": {
-  //   //         "value": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-  //   //       }
-  //   //     },
-  //   //     {
-  //   //       "type": "POLL",
-  //   //       "content": {
-  //   //         "question": "Do aliens exist?",
-  //   //         "answers": [
-  //   //           {
-  //   //             "value": "Yes",
-  //   //             "count": 2
-  //   //           },
-  //   //           {
-  //   //             "value": "No",
-  //   //             "count": 6
-  //   //           },
-  //   //           {
-  //   //             "value": "I don't know",
-  //   //             "count": 1
-  //   //           }
-  //   //         ]
-  //   //       }
-  //   //     }
-  //   //   ]
-  //   // },]
-  // } = props;
+  }, []);
 
   return (
     <div className="feed__container">
-      <Tabs
-        tabBarStyle={{border: 'none'}}
-      >
+      <Tabs>
         {tabs.map(({icon: Icon, title}, key) => (
           <TabPane
             key={key}
@@ -218,6 +55,7 @@ const Feed = (props) => {
             )}
           />))}
       </Tabs>
+      <Form />
       <Space
         style={{alignContent: 'stretch', width: '100%'}}
         direction={'vertical'}
@@ -234,6 +72,6 @@ const Feed = (props) => {
   )
 }
 
-Feed.Menu = (props) => <div>as</div>;
+Feed.Menu = Menu;
 
 export default Feed;

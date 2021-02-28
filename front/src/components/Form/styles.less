@@ -1,0 +1,30 @@
+
+.form__card {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &, & * {
+        transition: all 0.25s;
+    }
+
+    .form__placeholder {
+        color: #9B9FA8;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        margin-left: 20px;
+    }
+
+    .icons {
+        margin-left: auto;
+    }
+
+    &.active {
+        .form__placeholder {
+            margin-left: 0;
+            width: 100%;
+
+        }
+    }
+}
