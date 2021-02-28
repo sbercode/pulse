@@ -3,25 +3,28 @@ import { Avatar, Button, Card, Input, Upload, Select } from 'antd';
 import * as Icons from '@ant-design/icons';
 import lodash from 'lodash';
 import axios from 'axios';
+import photo from '../../modules/Profile/img/photo.png';
 import './styles.less';
 
 
+const initialState = { show: false, tags: [], text: '', title: '' };
+
 const Form = (props) => {
-  const [state, setState] = React.useState({ show: false, tags: [], text: '', title: '' });
-  const tagChange = React.useCallback(lodash.throttle(() => {
-    axios.get('http://h.igrogood.ru:8080/?text=' + encodeURI(state.text)).then(({ data = [] }) => setState({ tags: data }))
-  }, 500), [state.text]);
+  const [state, setState] = React.useState(initialState);
+  const tagChange = lodash.throttle(() => {
+    console.log(state);
+    axios.get('http://h.igrogood.ru:8080/?text=' + encodeURI(state.text)).then(({ data = [] }) => setState({ ...state, tags: data }))
+  }, 500);
 
   return (
     <Card>
       <div className={'form__card'}>
         <div className={'form__header'}>
-          <Avatar>RG</Avatar>
+          <Avatar src={photo}>RG</Avatar>
           <Select
             style={{ width: '100%' }}
             onSearch={tagChange}
-            onChange={console.error}
-            onSelect={value => setState({ tag: value })}
+            onSelect={value => console.log(value)}
             onFocus={tagChange}
             showArrow={false}
             bordered={false}
@@ -40,14 +43,14 @@ const Form = (props) => {
             className="form__title"
             bordered={false}
             value={state.title}
-            onChange={({ value }) => setState({ title: value })}
+            onChange={({ target: { value } }) => setState({ ...state, title: value })}
             placeholder="Заголовок..."
           />
           <Input.TextArea
             bordered={false}
             autoSize={{ minRows: 2 }}
             value={state.text}
-            onChange={({ value }) => setState({ text: value })}
+            onChange={({ target: { value } }) => setState({ ...state, text: value })}
             placeholder="Текст публикации..."
           />
         </div>
@@ -67,13 +70,31 @@ const Form = (props) => {
               <Icons.VideoCameraOutlined/>
             </Upload>
             <Upload>
-              <Icons.AuditOutlined/>
+              <Icons.AudioOutlined/>
             </Upload>
             <Icons.SettingOutlined/>
           </div>
           <Button
             type={'primary'}
             size={'large'}
+            loading={state.isLoading}
+            onClick={() => {
+              setState({ ...state, isLoading: true });
+              console.log(state);
+              axios.post('http://188.187.62.96:8000/posts', {
+                name: state.title,
+                tags: state.tags,
+                nodes: [
+                  {
+                    type: "TEXT",
+                      content: {
+                      value: state.text,
+                    }
+                  }
+                ]
+                }).then(({ data = [] }) => setState({ ...initialState, isLoading: false }))
+
+            }}
           >
             Публиковать
           </Button>
