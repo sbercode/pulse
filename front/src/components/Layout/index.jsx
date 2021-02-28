@@ -25,7 +25,7 @@ const LayoutComponent = (props) => {
           >
             RG
           </Avatar>
-          Rail Gallyamov
+          Мария Владимировна
         </div>
       </div>
       <div
