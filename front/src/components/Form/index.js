@@ -9,7 +9,7 @@ import './styles.less';
 
 const initialState = { show: false, tags: [], text: '', title: '' };
 
-const Form = (props) => {
+const Form = ({ onPublish }) => {
   const [state, setState] = React.useState(initialState);
   const tagChange = lodash.throttle(() => {
     console.log(state);
@@ -92,8 +92,10 @@ const Form = (props) => {
                     }
                   }
                 ]
-                }).then(({ data = [] }) => setState({ ...initialState, isLoading: false }))
-
+                }).then(({ data = [] }) => {
+                setState({ ...initialState, isLoading: false });
+                onPublish(data);
+              })
             }}
           >
             Публиковать

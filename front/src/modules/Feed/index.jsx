@@ -42,6 +42,8 @@ const Feed = (props) => {
         })
   }, []);
 
+  const onPublish = (post) => setPosts(posts =>[post, ...posts]);
+
   return (
     <div className="feed__container">
       <Typography.Title
@@ -66,7 +68,9 @@ const Feed = (props) => {
             )}
           />))}
       </Tabs>
-      <Form />
+      <Form
+        onPublish={onPublish}
+      />
       <Space
         style={{alignContent: 'stretch', width: '100%'}}
         direction={'vertical'}
