@@ -6,6 +6,7 @@ import com.github.sbercode.pulse.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post create(Post post) {
+        if (post == null || post.getName() == null) {
+            throw new RuntimeException("Post or Post.name is null");
+        }
         post.setCreationDate(new Date().getTime());
         post.setModificationDate(new Date().getTime());
         return postRepository.save(post);
@@ -28,13 +32,18 @@ public class PostServiceImpl implements PostService {
         if (!postRepository.existsById(post.getId())) {
             throw new RuntimeException("Post was not found for edit");
         }
+        if (post.getName() == null) {
+            throw new RuntimeException("Post.name is null");
+        }
         post.setModificationDate(new Date().getTime());
         return postRepository.save(post);
     }
 
     @Override
     public List<Post> getAll() {
-        return postRepository.findAll();
+        List<Post> posts = postRepository.findAll();
+        Collections.reverse(posts);
+        return posts;
     }
 
     @Override
