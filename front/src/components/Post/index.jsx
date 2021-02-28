@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Avatar, Card, Col, Image, Row, Typography } from 'antd';
+import { Avatar, Card, Col, Image, Row, Typography, Tag, Space } from 'antd';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import {
@@ -23,6 +23,7 @@ const Post = (props) => {
     user,
     creationDate,
     modificationDate,
+    tags,
   } = props;
 
   const [state, setState] = React.useState({ like: false });
@@ -94,6 +95,11 @@ const Post = (props) => {
 
 
       {content}
+      <Space direction={'horizontal'}
+        style={{paddingBottom: 10}}
+      >
+        {tags.map((tag, key) => (<Tag color={'success'} key={key} >{tag}</Tag>))}
+      </Space>
       <Row
         gutter={7}
         align={'middle'}
