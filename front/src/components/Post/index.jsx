@@ -2,7 +2,13 @@ import React, {useState} from 'react';
 import { Avatar, Card, Col, Image, Row, Typography } from 'antd';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { CommentOutlined, HeartOutlined, MoreOutlined, HeartFilled } from '@ant-design/icons';
+import {
+  SoundOutlined,
+  HeartOutlined,
+  MoreOutlined,
+  HeartFilled,
+  SoundFilled
+} from '@ant-design/icons';
 import lodash from 'lodash';
 import YouTube from 'react-youtube';
 import axios from "axios";
@@ -68,6 +74,10 @@ const Post = (props) => {
       })
   }
 
+  function doSound() {
+    setState(state => ({...state, voice: true }));
+  }
+
   return (
     <Card
       cover={cover}
@@ -109,8 +119,11 @@ const Post = (props) => {
             gutter={20}
             justify={'end'}
           >
-            <Col onClick={doLike}>
-              {likesCount}
+            <Col
+              style={{ cursor: 'pointer' }}
+              onClick={doLike}
+            >
+              {likesCount + state.like}
               {' '}
               {
                 state.like
@@ -118,11 +131,28 @@ const Post = (props) => {
                   : <HeartOutlined/>
               }
             </Col>
-            <Col>7 <CommentOutlined /></Col>
-            <Col><MoreOutlined rotate={90}/></Col>
+            <Col
+              style={{ cursor: 'pointer' }}
+              onClick={doSound}
+            >
+              {
+                state.voice
+                  ? <SoundFilled style={{ color: '#3bbbd9' }}/>
+                  : <SoundOutlined/>
+              }
+            </Col>
+            <Col
+              style={{ cursor: 'pointer' }}
+            >
+              <MoreOutlined rotate={90}/>
+            </Col>
           </Row>
         </Col>
       </Row>
+      {
+        state.voice &&
+        <audio autoPlay src={`http://188.187.62.96:8000/converter/voice/nick/${id}.ogg`} />
+      }
     </Card>
   );
 };
