@@ -2,14 +2,21 @@ import React, { useEffect } from 'react';
 import { Avatar, Card, Col, Image, Row, Typography, Skeleton } from 'antd';
 import { CommentOutlined, HeartOutlined, MoreOutlined, HeartFilled } from '@ant-design/icons';
 import axios from "axios";
+import './styles.less';
 
 const Post = (props) => {
-
+  const {
+    match: {
+      params: {
+        id
+      }
+    }
+  } = props;
 
   const [post, setPost] = React.useState({});
   const [state, setState] = React.useState({ like: false });
   React.useEffect(() => {
-    axios.get(`http://188.187.62.96:8000/post/${id}`)
+    axios.get(`http://188.187.62.96:8000/posts/${id}`)
       .then(res => {
         console.log(res.data)
         setPost(res.data)
@@ -21,19 +28,22 @@ const Post = (props) => {
 
 
   const {
-    id,
     name,
     nodes = [],
     likesCount,
     user,
     creationDate,
     modificationDate,
-  } = post;
+  } = post || {};
 
   const content = React.useMemo(() => nodes.map((node, key) => {
     switch (node.type) {
       case 'VIDEO': {
-        return <video src={node.content.source}/>;
+        return (
+          <div style={{ display: 'flex', justifyContent: 'center'}}>
+            <video controls style={{ width: '100%'}} src={node.content.source}/>
+          </div>
+        );
         break;
       }
       case 'AUDIO': {
@@ -52,19 +62,9 @@ const Post = (props) => {
     }
   }), [nodes])
 
-  if (!post) {
-    return (
-      <Card>
-        <Skeleton animated/>
-      </Card>
-    );
-  }
-
-
-
   function doLike() {
-    axios.get('http://localhost:8000/posts/' + id + state.like ? '/unlike': '/like')
-      .then(res => {
+    axios.get('http://188.187.62.96:8000/posts/' + id + (state.like ? '/unlike': '/like'))
+      .then(() => {
         setState(state => ({ like: !state.like }));
       })
       .catch(function (error) {
@@ -73,49 +73,67 @@ const Post = (props) => {
   }
 
   return (
-    <Card
+    <div
+      className={'post__content'}
     >
-      <Typography.Title>
-        {props.post.name}
-      </Typography.Title>
-      {content}
-      <Row
-        gutter={7}
-        align={'middle'}
+      <Card
+        className={'post__card'}
       >
-        <Col>
-          <Avatar
-          >
-            SS
-          </Avatar>
-        </Col>
-        <Col>
-          <Row>
-            {user ? user.firstName : 'Semen'} {user != null ? user.lastName : 'Salychev'}
-          </Row>
-          <Row>
-            <Typography.Text type={'secondary'} >
-              @shampinon
-            </Typography.Text>
-          </Row>
-        </Col>
-        <Col flex={'auto'}>
-          <Row
-            gutter={20}
-            justify={'end'}
-          >
-            <Col onClick={doLike}>
-              {likesCount + state.like}
-            {state.like
-              ? <HeartOutlined style={{ background: '#c00' }}/>
-              : <HeartOutlined/>}
-            </Col>
-            <Col>7 <CommentOutlined /></Col>
-            <Col><MoreOutlined rotate={90}/></Col>
-          </Row>
-        </Col>
-      </Row>
-    </Card>
+        {
+          !post
+            ? <Skeleton animated/>
+            : (
+              <>
+                <Typography.Title>
+                  {name}
+                </Typography.Title>
+                {content}
+                <Row
+                  gutter={7}
+                  align={'middle'}
+                >
+                  <Col>
+                    <Avatar
+                    >
+                      SS
+                    </Avatar>
+                  </Col>
+                  <Col>
+                    <Row>
+                      {user ? user.firstName : 'Semen'} {user != null ? user.lastName : 'Salychev'}
+                    </Row>
+                    <Row>
+                      <Typography.Text type={'secondary'} >
+                        @shampinon
+                      </Typography.Text>
+                    </Row>
+                  </Col>
+                  <Col flex={'auto'}>
+                    <Row
+                      gutter={20}
+                      justify={'end'}
+                    >
+                      <Col onClick={doLike}>
+                        {likesCount}
+                        {' '}
+                        {
+                          state.like
+                            ? <HeartFilled style={{ color: '#c00' }}/>
+                            : <HeartOutlined/>
+                        }
+                      </Col>
+                      <Col>7 <CommentOutlined /></Col>
+                      <Col><MoreOutlined rotate={90}/></Col>
+                    </Row>
+                  </Col>
+                </Row></>
+            )
+
+        }
+
+      </Card>
+    </div>
+
   );
 };
 

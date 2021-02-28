@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Avatar, Card, Col, Image, Row, Typography } from 'antd';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { CommentOutlined, HeartOutlined, MoreOutlined } from '@ant-design/icons';
+import { CommentOutlined, HeartOutlined, MoreOutlined, HeartFilled } from '@ant-design/icons';
 import lodash from 'lodash';
 import YouTube from 'react-youtube';
 import axios from "axios";
@@ -59,7 +59,7 @@ const Post = (props) => {
   }
 
   function doLike() {
-    axios.get('http://localhost:8000/posts/' + id + (state.like ? '/unlike': '/like'))
+    axios.get('http://188.187.62.96:8000/posts/' + id + (state.like ? '/unlike': '/like'))
       .then(() => {
         setState(state => ({ like: !state.like }));
       })
@@ -73,15 +73,17 @@ const Post = (props) => {
       cover={cover}
       title={<Typography.Text type={'secondary'}>{moment(Date.now()).format('D MMMM')}</Typography.Text>}
     >
-      <Typography.Title level={2} >
-        {name}
-      </Typography.Title>
       <Link
         style={{ color: 'inherit' }}
         to={`/post/${id}`}
       >
-        {content}
+        <Typography.Title level={2} >
+          {name}
+        </Typography.Title>
       </Link>
+
+
+      {content}
       <Row
         gutter={7}
         align={'middle'}
@@ -107,7 +109,15 @@ const Post = (props) => {
             gutter={20}
             justify={'end'}
           >
-            <Col onClick={doLike}>{likesCount} state.like ?  <HeartOutlined style={{ background: '#c00' }}/> : <HeartOutlined /> </Col>
+            <Col onClick={doLike}>
+              {likesCount}
+              {' '}
+              {
+                state.like
+                  ? <HeartFilled style={{ color: '#c00' }}/>
+                  : <HeartOutlined/>
+              }
+            </Col>
             <Col>7 <CommentOutlined /></Col>
             <Col><MoreOutlined rotate={90}/></Col>
           </Row>

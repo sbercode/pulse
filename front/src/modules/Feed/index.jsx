@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Space, Select, Tabs} from 'antd';
-import {PlayCircleOutlined, FileTextOutlined} from '@ant-design/icons';
+import { Space, Select, Tabs, Typography } from 'antd';
+import {PlayCircleOutlined, FileTextOutlined, AudioOutlined} from '@ant-design/icons';
 import Post from "../../components/Post";
 import Form from "../../components/Form";
 import Menu from './Menu';
@@ -17,6 +17,7 @@ const tabs = [
     type: 'VIDEO',
   },
   {
+    icon: AudioOutlined,
     title: "Подкасты",
     type: 'AUDIO',
   },
@@ -43,6 +44,16 @@ const Feed = (props) => {
 
   return (
     <div className="feed__container">
+      <Typography.Title
+        level={2}
+      >
+        Доброе утро, Раиль ☀
+      </Typography.Title>
+      <Typography.Title
+        level={4}
+      >
+        Поделись со своими коллегами экспертными навыками
+      </Typography.Title>
       <Tabs>
         {tabs.map(({icon: Icon, title}, key) => (
           <TabPane
